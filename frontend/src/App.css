@@ -5,7 +5,9 @@
   justify-content: space-between;
   align-items: center;
 
-  min-height: 100dvh;
+  height: 100dvh;
+  max-height: 100vh;
+  overflow: hidden;
   width: 100%;
 
   padding-block: 1rem;

@@ -65,6 +65,25 @@ export default function AIForm() {
 		closeButtonRef.current?.click();
 	}, [data]);
 
+	if (!aiConnection.length) {
+		return (
+			<div className="flex flex-col items-center gap-4 px-1 text-center">
+				<p>
+					Vaya, parece que la información necesaria no se pudo cargar. Por favor, presiona
+					actualizar.
+				</p>
+				<Button
+					variant="outline"
+					className="max-w-[240px]"
+					onClick={() => {
+						location.reload();
+					}}>
+					<span>Actualizar</span>
+				</Button>
+			</div>
+		);
+	}
+
 	return (
 		<Form {...form}>
 			<form className="" onSubmit={form.handleSubmit(handleSubmit)}>
@@ -120,7 +139,7 @@ export default function AIForm() {
 							ref={closeButtonRef}
 							type="button"
 							disabled={isPending}
-							variant="destructive"
+							variant="ghost"
 							className="h-8">
 							<span>Cancelar</span>
 						</Button>

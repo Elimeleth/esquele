@@ -1,5 +1,4 @@
 import { useCallback } from 'react';
-import { AnimatePresence, motion } from 'framer-motion';
 import { Check, Copy } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
@@ -42,13 +41,9 @@ export default function BoxSql({ completion, onChange }: BoxSqlProps) {
 	);
 
 	return (
-		<AnimatePresence>
+		<>
 			{completion.event.length > 0 && !completion.isPending && (
-				<motion.div
-					layout
-					initial={{ opacity: 0.6, y: 150 }}
-					animate={{ opacity: 1, y: 0 }}
-					exit={{ opacity: 0.6, y: 150 }}
+				<div
 					className="
 				border border-input rounded-md
 				flex flex-col flex-1 relative 
@@ -97,8 +92,8 @@ export default function BoxSql({ completion, onChange }: BoxSqlProps) {
 							)}
 						</Button>
 					</div>
-				</motion.div>
+				</div>
 			)}
-		</AnimatePresence>
+		</>
 	);
 }

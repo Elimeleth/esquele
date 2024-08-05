@@ -2,6 +2,7 @@ import { useCallback, useState } from "react";
 import { toast } from "sonner";
 
 import { createSqlCompletion } from "@/service/slq-completions";
+import { useLastQueries } from "@/store/useLastQueries";
 
 import { useConfigStore } from "@/store/useConfigStore"
 import { APISqlCompletionsParams, SqlCompletationState } from "@/types/api-sql-completion";
@@ -10,6 +11,8 @@ import { APISqlCompletionsParams, SqlCompletationState } from "@/types/api-sql-c
 export const useSqlCompletion = (update: (data: Partial<SqlCompletationState>) => void) => {
     const [typeCompletion, setTypeCompletion] = useState<"completion" | "execute" | "explain"
         | ''>('');
+    const [resetQuery] = useLastQueries((state) => [state.reset]);
+
     const [isPending, setIsPending] = useState(false);
     const [aiConfig, dbConfig] = useConfigStore(state => [state.aiConfig, state.dbConfig]);
 
@@ -21,14 +24,14 @@ export const useSqlCompletion = (update: (data: Partial<SqlCompletationState>) =
             eventUpdate: '',
             data: '',
             isPending: false,
-            done: false
+            done: false,
         });
     }
 
     const execute = useCallback((params: Omit<APISqlCompletionsParams, 'ai-connection' | 'bd-connection'>) => {
         setIsPending(true);
         setTypeCompletion(params.type)
-        update({ isPending: true });
+        update({ isPending: true, type: params.type });
         createSqlCompletion({
             query: params.query,
             type: params.type,
@@ -38,10 +41,24 @@ export const useSqlCompletion = (update: (data: Partial<SqlCompletationState>) =
         }, {
             init: initCb,
             next: update,
-            error: (message) => toast("Error", {
-                description: message,
-                duration: 3000
-            })
+            error: (message) => {
+                toast("Error", {
+                    description: message,
+                    duration: 3000
+                });
+
+                update({
+                    data: '',
+                    isPending: false,
+                    done: false,
+                });
+
+                setIsPending(false);
+
+                if (params.type == 'completion') {
+                    resetQuery();
+                }
+            }
         });
     }, [aiConfig?.validate, dbConfig?.validate]);
 

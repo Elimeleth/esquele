@@ -23,7 +23,7 @@ type Props = {
 
 export function DBEngineCombobox({ defaultValue = '', engines, onChange }: Props) {
 	const [open, setOpen] = React.useState(false);
-	const [value, setValue] = React.useState('');
+	const [value, setValue] = React.useState(defaultValue);
 
 	React.useEffect(() => {
 		if (engines.length == 0) return;
@@ -39,6 +39,10 @@ export function DBEngineCombobox({ defaultValue = '', engines, onChange }: Props
 		setValue(engines[0].provider);
 		onChange(engines[0].provider);
 	}, [engines]);
+
+	React.useEffect(() => {
+		setValue(defaultValue);
+	}, [defaultValue]);
 
 	return (
 		<Popover open={open} onOpenChange={setOpen}>

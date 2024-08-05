@@ -7,10 +7,10 @@ import { useConfigStore } from '@/store/useConfigStore';
 import { useLastQueries } from '@/store/useLastQueries';
 import { useDebounce } from '@/hooks/useDebounce';
 
-import GoghImage from '@assets/ic-gogh.png';
 import { Popover, PopoverTrigger, PopoverContent } from './ui/popover';
 import { cn } from '@/lib/utils';
 import type { SqlCompletationState } from '@/types/api-sql-completion';
+import GoghIcon from './icons/Gogh';
 
 type SqlMarkdownProps = {
 	completion: SqlCompletationState;
@@ -49,7 +49,7 @@ export default function SqlMarkdown({ completion, onChange }: SqlMarkdownProps) 
 							'flex flex-row items-center gap-2 max-w-[85%]',
 							completion.done && 'cursor-pointer'
 						)}>
-						<img src={GoghImage} className="w-4 h-4" />
+						<GoghIcon className="w-4 h-4" />
 						<span className="text-xs text-muted-foreground/65 font-medium font-bold overflow-hidden text-ellipsis truncate">
 							{completion.done ? query : completion.eventUpdate}
 						</span>

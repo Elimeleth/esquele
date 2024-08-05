@@ -22,11 +22,11 @@ export default function DBFormDialog({ children }: AIFormDialogProps) {
 			<DialogContent className="sm:max-w-[425px]">
 				<DialogHeader>
 					<DialogTitle>Base de datos</DialogTitle>
-					<DialogDescription>
+					<DialogDescription className="text-sm">
 						<p> Establece la conexión a tu base de datos</p>
 						<p className="text-xs mt-2">
-							Este proceso puede tardar aproximadamente 2 minutos mientras creamos un
-							índice con la metadata de tus tablas.
+							Este proceso puede tardar algunos segundos mientras creamos un índice con la
+							metadata de tus tablas.
 						</p>
 					</DialogDescription>
 				</DialogHeader>

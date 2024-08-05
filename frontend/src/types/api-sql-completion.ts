@@ -14,4 +14,5 @@ export interface SqlCompletationState {
     eventUpdate: string;
     done: boolean;
     isPending: boolean;
+    type?: "completion" | "execute" | "explain";
 }

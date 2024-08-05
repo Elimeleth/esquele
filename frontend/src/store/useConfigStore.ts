@@ -3,6 +3,8 @@ import { persist } from 'zustand/middleware';
 
 import { useLsStorage } from './useStore';
 
+export type DbEngine = 'postgres' | 'mysql' | '';
+
 type State = {
     aiConfig: {
         provider: string;
@@ -11,12 +13,14 @@ type State = {
         validate: boolean;
     } | null;
     dbConfig: {
-        provider: string;
+        provider: DbEngine;
         url: string;
         type: any;
         schema: string;
         validate: boolean;
     } | null;
+    isValidatingDb: boolean;
+    isValidatingAi: boolean;
 };
 
 type Actions = {
@@ -38,6 +42,8 @@ const _useConfigStore: StateCreator<State & Actions> = (set) => ({
         type: "",
         validate: false
     },
+    isValidatingAi: false,
+    isValidatingDb: false,
     update(arg) {
         if (typeof arg == 'function') {
             set(vl => {

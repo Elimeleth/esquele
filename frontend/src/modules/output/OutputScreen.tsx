@@ -4,18 +4,26 @@ import { Card } from '@/components/ui/card';
 import { cn } from '@/lib/utils';
 import { useSqlGenerationStore } from '@/store/useSqlGenerationStore';
 
-import GoghImage from '@assets/ic-gogh.png';
+import GoghIcon from '@/components/icons/Gogh';
 import Loading from '@/components/loading/Loading';
 import MdxWrapper from '@/components/MdxWrapper';
 
 type Props = React.HTMLAttributes<HTMLElement>;
 
 export default function OutputScreen({ className, ...props }: Props) {
-	const [event, data, isPending] = useSqlGenerationStore((state) => [
+	const [event, data, isPending, done, type] = useSqlGenerationStore((state) => [
 		state.eventUpdate,
 		state.data,
 		state.isPending,
+		state.done,
+		state.type,
 	]);
+
+	const typeMessage = {
+		explain: 'Explicación de Sql',
+		execute: 'Ejecución de Sql',
+		completion: '',
+	};
 
 	return (
 		<Card
@@ -30,7 +38,7 @@ export default function OutputScreen({ className, ...props }: Props) {
 				{!isPending && (
 					<>
 						{event.length > 0 || data.length > 0 ? (
-							<Content data={data} event={event} />
+							<Content data={data} event={done && type ? typeMessage[type] : event} />
 						) : (
 							<EmptyState />
 						)}
@@ -45,7 +53,7 @@ function Content({ event, data }: { event: string; data: string }) {
 	return (
 		<div className="flex flex-col flex-1 justify-start items-start gap-2 text-sm overflow-hidden">
 			<div className="flex flex-row gap-2">
-				<img src={GoghImage} className="w-4 h-4" />
+				<GoghIcon className="size-4" />
 				<p className="text-xs text-muted-foreground/65 font-medium">{event}</p>
 			</div>
 			<MdxWrapper content={data} />

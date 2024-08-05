@@ -1,11 +1,13 @@
 interface SchemaConfig {
     required: boolean;
     placeholder: string;
+    default: string;
 }
 
 interface UrlConfig {
     required: boolean;
     placeholder: string;
+    default: string;
 }
 
 export interface DBConnection {

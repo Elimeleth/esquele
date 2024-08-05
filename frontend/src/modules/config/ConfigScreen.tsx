@@ -3,11 +3,13 @@ import React, { useEffect } from 'react';
 import { useAPIConfs } from '@/hooks/useAPIConfs';
 import { useAPIConfsStore } from '@/store/useAPIConfsStore';
 import { useConfigStore } from '@/store/useConfigStore';
+import { useGetTableInfo } from '@/hooks/useTableInfo';
+import { useTablesInfoStore } from '@/store/useTableInfoStore';
 
 import { Card } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
 import { Switch } from '@/components/ui/switch';
-import { Brain, Check, Database, Info } from 'lucide-react';
+import { Brain, Check, Database, Info, Table } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 
@@ -17,12 +19,15 @@ import ChatTemporalDialog from '@/components/ChatTemporalDialog';
 import AIFormDialog from './components/AIFormDialog';
 import DBFormDialog from './components/DBFormDialog';
 import AuthorsSection from '@/components/AuthorsSection';
+import TablesInfoDialog from './components/TablesInfoDialog';
 
 type Props = React.HTMLAttributes<HTMLElement>;
 
 export default function ConfigScreen({ className, ...props }: Props) {
 	const { data } = useAPIConfs();
 	const [update] = useAPIConfsStore((state) => [state.update]);
+	const [tables] = useTablesInfoStore((state) => [state.tables]);
+	const { execute, isPending, error, data: tablesData } = useGetTableInfo();
 	const [aiConfig, dbConfig] = useConfigStore((state) => [
 		state.aiConfig,
 		state.dbConfig,
@@ -36,6 +41,20 @@ export default function ConfigScreen({ className, ...props }: Props) {
 			dbConnection: data.configurations['db-connection'],
 		});
 	}, [data]);
+
+	useEffect(() => {
+		if (isPending || error || tablesData) return;
+		if (!dbConfig?.validate) return;
+
+		if (tables.length > 0) return;
+
+		execute({
+			provider: dbConfig!.provider,
+			schema: dbConfig!.schema,
+			type: dbConfig!.type,
+			url: dbConfig!.url,
+		});
+	}, [aiConfig, dbConfig, tables]);
 
 	return (
 		<Card {...props} className={cn('w-full p-0 shadow-sm', className)}>
@@ -53,7 +72,7 @@ export default function ConfigScreen({ className, ...props }: Props) {
 					<Switch id="temporal-mode" checked />
 				</div>
 			</div>
-			<div className="flex flex-col flex-1 p-4 pt-1 space-y-3 overflow-y-auto">
+			<div className="flex flex-col gap-y-3 flex-1 p-4 pt-1  overflow-y-auto">
 				<p className="text-[11px]">
 					Configura las variables requeridas para el funcionamiento del entorno
 				</p>
@@ -75,6 +94,20 @@ export default function ConfigScreen({ className, ...props }: Props) {
 						{dbConfig?.validate && <Check size={14} className="text-primary" />}
 					</Button>
 				</DBFormDialog>
+				<div className="flex mt-4 w-full">
+					{tables.length > 0 && (
+						<TablesInfoDialog>
+							<Button
+								variant="outline"
+								disabled={!aiConfig?.validate}
+								className="w-full h-auto justify-start items-center">
+								<Table size={20} className="mr-2" />
+								<span className="text-left flex-1">Ver tablas</span>
+								<span>{tables.length}</span>
+							</Button>
+						</TablesInfoDialog>
+					)}
+				</div>
 			</div>
 			<AuthorsSection />
 		</Card>

@@ -17,7 +17,10 @@ export default function EsqueleConfigSheet() {
 					<Menu size={20} />
 				</Button>
 			</SheetTrigger>
-			<SheetContent side="left" className="flex flex-col gap-1 h-full p-0">
+			<SheetContent
+				showCloseButton={false}
+				side="left"
+				className="flex flex-col gap-1 h-full p-0">
 				<SheetHeader className="h-max items-start px-2">
 					<SheetClose asChild>
 						<Button variant="ghost" className="p-0 m-0 hover:bg-transparent">

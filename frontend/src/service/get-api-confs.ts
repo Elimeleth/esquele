@@ -1,18 +1,15 @@
-// import { apiURI } from "@/constants/api.const";
+import { apiURI } from "@/constants/api.const";
 import type { APIConfsResponse } from "@/types/api-confs";
-import { configurations } from "./api/api";
 
-export const getAPIConfs = (): APIConfsResponse => {
+export const getAPIConfs = async (): Promise<APIConfsResponse> => {
 
-    // return await fetch(`${apiURI}confs`)
-    //     .then(response => {
-    //         if (!response.ok) {
-    //             throw Error('Error obteniendo configuración');
-    //         }
+    return await fetch(`${apiURI}confs`)
+        .then(response => {
+            if (!response.ok) {
+                throw Error('Error obteniendo configuración');
+            }
 
-    //         return response.json() as Promise<APIConfsResponse>;
-    //     })
-
-    return configurations()
+            return response.json() as Promise<APIConfsResponse>;
+        })
 
 }

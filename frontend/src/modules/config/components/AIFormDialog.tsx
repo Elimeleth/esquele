@@ -21,7 +21,7 @@ export default function AIFormDialog({ children }: AIFormDialogProps) {
 			<DialogContent className="sm:max-w-[425px]">
 				<DialogHeader>
 					<DialogTitle>Configuración AI</DialogTitle>
-					<DialogDescription>
+					<DialogDescription className="text-sm">
 						Configura el modelo y proveedor ideal para ti.
 					</DialogDescription>
 				</DialogHeader>

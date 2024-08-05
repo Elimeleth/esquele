@@ -1,6 +1,6 @@
-import { StateCreator, create } from "zustand";
-import { persist } from "zustand/middleware";
-import { useLsStorage } from "./useStore";
+import { create } from "zustand";
+// import { persist } from "zustand/middleware";
+// import { useLsStorage } from "./useStore";
 
 type State = {
     queries: string[];
@@ -10,12 +10,13 @@ type State = {
 
 type Actions = {
     update: (query: string) => void;
+    reset: () => void;
     filterQuery: (query: string) => void;
     removeFilter: () => void;
     removeQuery: (position: number) => void;
 }
 
-const _useLastQueries: StateCreator<State & Actions> = ((set) => ({
+export const useLastQueries = create<State & Actions>(set => ({
     queries: [],
     query: '',
     filter: '',
@@ -39,6 +40,14 @@ const _useLastQueries: StateCreator<State & Actions> = ((set) => ({
             filter: ''
         }));
     },
+    reset() {
+        set(vl => ({
+            ...vl,
+            queries: [],
+            query: '',
+            filter: ''
+        }))
+    },
     removeQuery(position) {
         set(vl => {
             const newQ = vl.queries.filter((_, i) => i != position);
@@ -52,11 +61,11 @@ const _useLastQueries: StateCreator<State & Actions> = ((set) => ({
     },
 }));
 
-export const useLastQueries = create<State & Actions>()(
-    persist(
-        _useLastQueries, {
-        name: 'last_queries',
-        storage: useLsStorage
-    }
-    )
-)
+// export const useLastQueries = create<State & Actions>()(
+//     persist(
+//         _useLastQueries, {
+//         name: 'last_queries',
+//         storage: useLsStorage
+//     }
+//     )
+// )

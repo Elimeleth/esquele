@@ -6,8 +6,11 @@ import { cn } from '@/lib/utils';
 
 import FieldText from './components/FieldText';
 import BoxSql from './components/BoxSql';
-import LastQueries from '@/components/LastQueries';
+// import LastQueries from '@/components/LastQueries';
 import { useSqlCompletionStore } from '@/store/useSqlCompletionStore';
+import { Button } from '@/components/ui/button';
+import { useLastQueries } from '@/store/useLastQueries';
+import { useTablesInfoSelection } from '@/store/useTablesInfoSelection';
 
 type Props = React.HTMLAttributes<HTMLElement>;
 
@@ -17,38 +20,42 @@ export default function InputScreen({ className, ...props }: Props) {
 		state.updateWithPosition,
 	]);
 
+	const [query, resetQuery] = useLastQueries((state) => [state.query, state.reset]);
+	const [resetTables] = useTablesInfoSelection((state) => [state.reset]);
+
+	const handleNewQuery = () => {
+		resetQuery();
+		resetTables();
+	};
 	return (
 		<Card {...props} className={cn('w-full p-0 shadow-sm flex flex-col', className)}>
-			<h2 className="mb-1 text-lg font-medium px-4 pt-4">Consulta</h2>
+			<div className="flex flex-row items-center justify-between px-4 pt-4 mb-2">
+				<h2 className="text-lg font-medium">Consulta</h2>
+				{!completions[0]?.isPending && query.length > 0 && (
+					<Button variant="outline" className="h-8" onClick={() => handleNewQuery()}>
+						<span>Nueva consulta</span>
+					</Button>
+				)}
+			</div>
 			<div className="w-full flex flex-col flex-1 gap-1">
-				<div className="w-full px-4">
-					<FieldText />
-				</div>
-				<LastQueries />
-				{/* <div className="flex flex-col flex-1 gap-y-4 max-h-[340px] overflow-hidden overflow-y-auto snap-y snap-mandatory px-4 pb-4">
-					{completions.map((completion) => (
-						<BoxSql
-							completion={completion}
-							onChange={(value) => {
-								updateWithPosition({
-									data: value,
-								});
-							}}
-						/>
-					))}
-				</div> */}
-				<div className="flex flex-1 px-4 pb-4">
-					{completions.length > 0 && (
-						<BoxSql
-							completion={completions[0]}
-							onChange={(value) => {
-								updateWithPosition({
-									data: value,
-								});
-							}}
-						/>
-					)}
-				</div>
+				{completions[0]?.isPending || !query.length ? (
+					<div className="w-full px-4 flex flex-1">
+						<FieldText />
+					</div>
+				) : (
+					<div className="flex flex-1 px-4 pb-4">
+						{completions.length > 0 && (
+							<BoxSql
+								completion={completions[0]}
+								onChange={(value) => {
+									updateWithPosition({
+										data: value,
+									});
+								}}
+							/>
+						)}
+					</div>
+				)}
 			</div>
 		</Card>
 	);

@@ -50,6 +50,7 @@ export const useSqlCompletionStore = create<State & Actions>((set) => ({
                 done: before?.done ?? false,
                 isPending: before?.isPending ?? false,
                 eventUpdate: before?.eventUpdate ?? "",
+                type: undefined,
                 ...completion
             }
             return {

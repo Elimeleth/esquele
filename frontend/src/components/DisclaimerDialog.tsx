@@ -20,7 +20,7 @@ const MdxContent = `
 La presente aplicación web, diseñada para interactuar con sus datos SQL, requiere una conexión a la base de datos y a un proveedor de inteligencia artificial (AI) para su funcionamiento adecuado. A continuación, se detalla la política de almacenamiento de datos:
 
 1. **Datos no almacenados**:
-    - **Configuración de la base de datos**: No se almacena información como la URL de la base de datos o el esquema. Únicamente se guarda la metadata de las tablas.
+    - **Configuración de la base de datos**: No se almacena información como la URL de la base de datos o el esquema. Por motivos de optimizacion del sistema se cargan en memoria la informacion que proporciona el esquema de la base de datos.
     - **Proveedor AI**: No se almacena la clave de API (apikey) del proveedor de AI.
     - **Configuraciones no almacenadas**: Con cada nueva sesión, es necesario configurar nuevamente la información mencionada en los puntos 1.1 y 1.2.
     - **Chats temporales**: Los chats temporales no almacenan su estado. Esto significa que no se guardan respuestas anteriores de ningún tipo ni forma en la sesión actual.
