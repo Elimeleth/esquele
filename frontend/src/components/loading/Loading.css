@@ -1,0 +1,29 @@
+.dot-loading {
+    --dotSize: 14px;
+    height: var(--dotSize);
+    width: var(--dotSize);
+    margin-right: calc(var(--dotSize) - 4px);
+    border-radius: calc(var(--dotSize) - 4px);
+    background-color: hsl(var(--primary));
+    animation: pulse 1.5s infinite ease-in-out;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(0.6);
+        background-color: hsl(var(--primary) / .125);
+        box-shadow: 0 0 0 0 hsl(var(--primary) / .85)
+    }
+
+    50% {
+        transform: scale(.7);
+        background-color: hsl(var(--secondary));
+        box-shadow: 0 0 0 10px hsl(var(--primary)/.125)
+    }
+
+    100% {
+        transform: scale(0.7);
+        background-color: hsl(var(--primary) / .155);
+        box-shadow: 0 0 0 0 hsl(var(--primary)/.85)
+    }
+}

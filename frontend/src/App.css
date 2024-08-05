@@ -1,0 +1,14 @@
+.app-container {
+  background: hsl(var(--background));
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+
+  min-height: 100dvh;
+  width: 100%;
+
+  padding-block: 1rem;
+
+  position: relative;
+}

@@ -1,0 +1,28 @@
+#toasts-portal {
+    pointer-events: none;
+    position: absolute;
+    top: 1rem;
+    left: 50%;
+    transform: translateX(-50%);
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 30px;
+
+    min-width: 240px;
+    height: 80px;
+
+
+    z-index: 200;
+
+}
+
+.toast {
+    pointer-events: auto;
+
+    border-radius: 4px;
+    padding: 10px 20px;
+    overflow: hidden;
+
+}

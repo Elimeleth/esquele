@@ -1,0 +1,1 @@
+export const SECRET_KEY_ENCRYPT = '3s1u3l3_w3@_c0m';

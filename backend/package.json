@@ -1,0 +1,52 @@
+{
+  "name": "rsikuel",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node ./dist/index.js",
+    "lint": "eslint . --no-ignore",
+    "dev": "npm run lint && nodemon ./src/index.ts",
+    "build": "npx rollup -c",
+    "build:dev": "pnpm run build && pnpm start"
+  },
+  "dependencies": {
+    "@ai-sdk/google": "^0.0.27",
+    "@ai-sdk/mistral": "^0.0.22",
+    "@ai-sdk/openai": "^0.0.36",
+    "@hono/node-server": "^1.11.2",
+    "@hono/zod-validator": "^0.2.2",
+    "@langchain/community": "^0.2.19",
+    "@langchain/core": "^0.2.6",
+    "@langchain/google-genai": "^0.0.22",
+    "@langchain/groq": "^0.0.15",
+    "@langchain/langgraph": "0.0.29",
+    "@langchain/nomic": "^0.0.6",
+    "@langchain/openai": "0.2.4",
+    "ai": "^3.3.0",
+    "axios": "^1.7.2",
+    "dotenv": "^16.4.5",
+    "hono": "^4.4.5",
+    "langchain": "^0.2.10",
+    "mariadb": "^3.3.1",
+    "ml-distance": "^4.0.1",
+    "mysql2": "^3.10.3",
+    "pg": "^8.12.0",
+    "reflect-metadata": "^0.2.2",
+    "tslib": "^2.6.2",
+    "typeorm": "^0.3.20",
+    "zod": "^3.23.8",
+    "zod-to-json-schema": "^3.23.0"
+  },
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^25.0.7",
+    "@types/node": "^20.11.30",
+    "@typescript-eslint/eslint-plugin": "^7.2.0",
+    "@typescript-eslint/parser": "^7.4.0",
+    "eslint": "^8.52.0",
+    "rollup": "^4.10.0",
+    "rollup-plugin-typescript2": "^0.36.0",
+    "typescript": "^5.4.3"
+  }
+}
