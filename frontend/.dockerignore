@@ -8,14 +8,6 @@ yarn-debug.log
 package-lock.json
 yarn.lock
 
-# Build output
-dist
-build
-coverage
-
-# Environment files
-.env
-
 # OS-specific files
 .DS_Store
 Thumbs.db
