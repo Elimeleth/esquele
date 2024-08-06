@@ -5,7 +5,7 @@
 __Correr el sistema en tu local__
 
 ```shell
-docker-compose up -d --force-recreate
+docker-compose up -d --build
 ```
 La enviroment `VITE_API_URI` es necesaria para comunicar el frontend con el backend.
 

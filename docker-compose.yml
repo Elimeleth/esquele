@@ -18,5 +18,4 @@ services:
       - "3018:3018"
     environment:
       - NODE_ENV=production
-    volumes:
-      - ./backend:/app
+      - PORT=3018

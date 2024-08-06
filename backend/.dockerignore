@@ -1,24 +1,2 @@
 # Node modules
 node_modules
-npm-debug.log
-yarn-error.log
-yarn-debug.log
-.pnp.*
-.pnp
-package-lock.json
-yarn.lock
-
-# Build output
-dist
-build
-coverage
-
-# Environment files
-.env
-
-# OS-specific files
-.DS_Store
-Thumbs.db
-
-# Logs
-*.log
