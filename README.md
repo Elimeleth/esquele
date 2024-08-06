@@ -1,5 +1,7 @@
 # esquele
 
+https://github.com/user-attachments/assets/4f241c61-3a49-4ebf-85c2-4ebb83580c37
+
 ### Un sistema simple para interactuar con tus datos
 
 __Correr el sistema en tu local__
