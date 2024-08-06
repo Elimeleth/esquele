@@ -7,8 +7,8 @@ services:
       dockerfile: Dockerfile
     ports:
       - "3003:3003"
-    environment:
-      - VITE_API_URI=http://localhost:3018/v1/
+    volumes:
+      - ./frontend/.env.production:/app/.env.production:ro
     depends_on:
       - backend
 
